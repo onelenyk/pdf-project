@@ -78,6 +78,32 @@ tasks.shadowJar {
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = mainAppClassName
+        attributes["Implementation-Title"] = project.name
+        attributes["Implementation-Version"] = project.version
     }
     archiveFileName.set("pdfproject.jar")
+}
+
+// dokka
+
+tasks.register<Jar>("dokkaHtmlJar") {
+    dependsOn(tasks.dokkaHtml)
+    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
+    archiveClassifier.set("javadoc")
+}
+
+tasks.register<Jar>("dokkaJavadocJar") {
+    dependsOn(tasks.dokkaJavadoc)
+    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+    archiveClassifier.set("javadoc")
+}
+
+// Configure publishing
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            artifact(tasks["dokkaJavadocJar"])
+        }
+    }
 }
