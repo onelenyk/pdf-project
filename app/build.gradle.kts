@@ -85,6 +85,7 @@ tasks.withType<Jar> {
 
 // dokka
 
+
 tasks.register<Jar>("dokkaHtmlJar") {
     dependsOn(tasks.dokkaHtml)
     from(tasks.dokkaHtml.flatMap { it.outputDirectory })
@@ -105,4 +106,7 @@ publishing {
             artifact(tasks["dokkaJavadocJar"])
         }
     }
+}
+tasks.named("generateMetadataFileForMavenJavaPublication") {
+    dependsOn(tasks.named("dokkaJavadocJar"))
 }
