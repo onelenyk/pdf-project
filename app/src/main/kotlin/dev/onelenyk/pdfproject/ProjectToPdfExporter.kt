@@ -7,7 +7,6 @@ import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.kernel.utils.PdfMerger
 import dev.onelenyk.FileProcessor
 import dev.onelenyk.IFileProcessor
-import dev.onelenyk.IGitignoreRules
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -15,12 +14,13 @@ import java.nio.file.Path
 
 class ProjectToPdfExporter(
     private val rootDirectory: Path,
-    customRules: List<String> = listOf()
+    customRules: List<String> = listOf(),
 ) {
-    private val fileProcessor: IFileProcessor = FileProcessor(
-        rootDirectory,
-        customRules = customRules
-    )
+    private val fileProcessor: IFileProcessor =
+        FileProcessor(
+            rootDirectory,
+            customRules = customRules,
+        )
 
     private val outputFilePath: String = "$rootDirectory/output.pdf"
     private val temporaryDirectoryPath: String = "$rootDirectory/exporter"
@@ -40,7 +40,7 @@ class ProjectToPdfExporter(
 
         filesToProcess.forEachIndexed { index, file ->
             val relativePath = rootDirectory.parent.resolve(file)
-            val htmlFilePath = "$temporaryDirectoryPath/${file}.html"
+            val htmlFilePath = "$temporaryDirectoryPath/$file.html"
             File(htmlFilePath).apply {
                 parentFile.mkdirs()
                 writeText(convertFileToHTML(relativePath.toFile()))
