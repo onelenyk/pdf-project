@@ -12,11 +12,11 @@ import java.util.Properties
 val projectGroup = "dev.onelenyk"
 val mainAppClassName = "$projectGroup.pdfproject.AppKt"
 
-
 // Read properties file
-val versionProperties = Properties().apply {
-    load(file("version.properties").inputStream())
-}
+val versionProperties =
+    Properties().apply {
+        load(file("version.properties").inputStream())
+    }
 
 val projectVersion = versionProperties["version"] as String
 plugins {
@@ -53,7 +53,7 @@ dependencies {
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    //cli library
+    // cli library
     implementation("info.picocli:picocli:4.6.2")
 
     implementation("dev.onelenyk:gitignore-parser:v0.1.6")
@@ -61,7 +61,6 @@ dependencies {
     implementation("com.itextpdf:itext7-core:7.1.16")
     implementation("com.itextpdf:html2pdf:3.0.3")
 }
-
 
 application {
     // Define the main class for the application.
