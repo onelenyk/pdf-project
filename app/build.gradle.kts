@@ -86,7 +86,6 @@ tasks.withType<Jar> {
 
 // dokka
 
-
 tasks.register<Jar>("dokkaHtmlJar") {
     dependsOn(tasks.dokkaHtml)
     from(tasks.dokkaHtml.flatMap { it.outputDirectory })
@@ -99,15 +98,28 @@ tasks.register<Jar>("dokkaJavadocJar") {
     archiveClassifier.set("javadoc")
 }
 
+
+// Custom tasks to group dependencies
+tasks.register("prepareForPublication") {
+    dependsOn("dokkaJavadocJar", "shadowJar")
+}
+
+tasks.register("prepareDistribution") {
+    dependsOn("prepareForPublication", "jar")
+}
+
+tasks.register("setupScripts") {
+    dependsOn("prepareForPublication", "startShadowScripts")
+}
+
 // Ensure proper dependencies
 val dependentTasks = listOf("distZip", "distTar", "startScripts", "shadowDistZip", "shadowDistTar", "startShadowScripts")
 
 dependentTasks.forEach { taskName ->
     tasks.named(taskName) {
-        dependsOn(tasks.shadowJar, tasks.named("dokkaJavadocJar"))
+        dependsOn(tasks.named("prepareForPublication"))
     }
 }
-
 
 // Configure publishing
 publishing {
