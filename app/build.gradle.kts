@@ -130,3 +130,11 @@ publishing {
         }
     }
 }
+
+tasks.named("generateMetadataFileForMavenJavaPublication") {
+    mustRunAfter(tasks.named("dokkaJavadocJar"))
+}
+
+tasks.named("startShadowScripts") {
+    mustRunAfter(tasks.named("jar"))
+}
