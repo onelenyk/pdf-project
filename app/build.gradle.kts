@@ -112,6 +112,17 @@ tasks.register("setupScripts") {
     dependsOn("prepareForPublication", "startShadowScripts")
 }
 
+// Define a task to run the modify_setup.sh script
+tasks.register<Exec>("updateSetupScript") {
+    workingDir = file("..")
+    commandLine = listOf("bash", "./modify_install_pdfproject.sh")
+}
+
+// Make sure the updateSetupScript task runs before the build task
+tasks.build {
+    dependsOn(tasks.named("updateSetupScript"))
+}
+
 // Ensure proper dependencies
 val dependentTasks = listOf("distZip", "distTar", "startScripts", "shadowDistZip", "shadowDistTar", "startShadowScripts")
 
