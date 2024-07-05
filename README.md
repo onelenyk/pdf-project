@@ -13,7 +13,33 @@ pdf-project is a Kotlin-based command-line tool designed to convert project file
 
 ## Installation
 
-### In progress
+### Installation through `install_pdfproject.sh`
+
+Follow these steps to install `pdfproject` using the `install_pdfproject.sh` script. This method requires only the installation script.
+
+#### Prerequisites
+- Ensure Java is installed on your system.
+
+#### Steps
+
+1. **Download the Installation Script:**
+   curl -L -o install_pdfproject.sh "https://raw.githubusercontent.com/onelenyk/pdf-project/master/install_pdfproject.sh"
+
+2. **Make the Script Executable:**
+   chmod +x install_pdfproject.sh
+
+3. **Run the Installation Script:**
+   ./install_pdfproject.sh
+
+4. **Verify Installation:**
+   pdfproject --version
+
+#### Script Details
+The `install_pdfproject.sh` script downloads the latest JAR file, creates an execution script, and optionally sets up a symbolic link for easy access.
+
+#### Usage
+Run `pdfproject --help` to see the available options and commands. For further assistance, refer to the project's issues page on GitHub.
+
 ## Contributions
 
 Contributions are welcome! Please submit a pull request or open an issue for improvements or bug fixes.

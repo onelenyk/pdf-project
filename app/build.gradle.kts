@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.util.Properties
 
 /*
@@ -97,7 +96,6 @@ tasks.register<Jar>("dokkaJavadocJar") {
     from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
 }
-
 
 // Custom tasks to group dependencies
 tasks.register("prepareForPublication") {
