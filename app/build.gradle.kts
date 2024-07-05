@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.util.Properties
 
 /*
@@ -72,6 +73,7 @@ tasks.shadowJar {
     manifest {
         attributes["Main-Class"] = mainAppClassName
     }
+    dependsOn("distTar", "distZip")
 }
 
 tasks.withType<Jar> {
@@ -106,7 +108,4 @@ publishing {
             artifact(tasks["dokkaJavadocJar"])
         }
     }
-}
-tasks.named("generateMetadataFileForMavenJavaPublication") {
-    dependsOn(tasks.named("dokkaJavadocJar"))
 }
