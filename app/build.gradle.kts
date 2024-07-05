@@ -73,7 +73,6 @@ tasks.shadowJar {
     manifest {
         attributes["Main-Class"] = mainAppClassName
     }
-    dependsOn("distTar", "distZip")
 }
 
 tasks.withType<Jar> {
@@ -99,6 +98,16 @@ tasks.register<Jar>("dokkaJavadocJar") {
     from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
     archiveClassifier.set("javadoc")
 }
+
+// Ensure proper dependencies
+val dependentTasks = listOf("distZip", "distTar", "startScripts", "shadowDistZip", "shadowDistTar", "startShadowScripts")
+
+dependentTasks.forEach { taskName ->
+    tasks.named(taskName) {
+        dependsOn(tasks.shadowJar, tasks.named("dokkaJavadocJar"))
+    }
+}
+
 
 // Configure publishing
 publishing {
