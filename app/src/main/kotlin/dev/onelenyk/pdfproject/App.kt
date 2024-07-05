@@ -45,9 +45,3 @@ fun main(args: Array<String>) {
     val exitCode = CommandLine(App()).execute(*args)
     System.exit(exitCode)
 }
-
-fun mainTest(args: Array<String>) {
-    val projectRootPath = Paths.get("").toAbsolutePath()
-    val converter = ProjectToPdfExporter(projectRootPath)
-    converter.executeConversion()
-}
