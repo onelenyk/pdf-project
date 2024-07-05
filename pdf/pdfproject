@@ -1,0 +1,7 @@
+#!/bin/bash
+# Define the path to the JAR file
+JAR_PATH="/Users/lenyk/IdeaProjects/pdf-project/pdf/pdfproject.jar"
+
+# Run the JAR file
+java -jar "$JAR_PATH" "$@"
+
